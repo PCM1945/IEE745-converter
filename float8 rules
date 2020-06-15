@@ -1,0 +1,14 @@
+Suppose we want to represent −96(10).
+
+First we convert our desired number to binary: −1100000(2).
+Then we convert this to binary scientific notation: −1.100000(2) × 26.
+Then we fit this into the bits.
+We choose 1 for the sign bit since the number is negative.
+We add 7 to the exponent and place the result into the four exponent bits. For this example, we arrive at 6 + 7 = 13(10) = 1101(2).
+The three mantissa bits are the first three bits following the leading 1: 100. If it happened that there were 1 bits beyond the 1/8's place, we would need to round the mantissa to the nearest eighth.)
+Thus we end up with 1 1101 100.
+Conversely, suppose we want to decode the number 0 0101 100.
+
+We observe that the number is positive, and the exponent bits represent 0101(2) = 5(10). This is 7 more than the actual exponent, and so the actual exponent must be −2. Thus, in binary scientific notation, we have 1.100(2) × 2−2.
+We convert this to binary: 1.100(2) × 2−2 = 0.011(2).
+We convert the binary into decimal: 0.011(2) = 1/4 + 1/8 = 3/8 = 0.375(10).
