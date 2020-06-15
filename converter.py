@@ -8,18 +8,37 @@ def get_signal(dec_num):
     else:
         return 0
 
+def frac_to_bin(frac_num,type):
+    if type == "float8":
+        maxsize = 4
+    elif type == "float32":
+        maxsize = 23
+    elif type == "double64":
+        maxsize = 52
+    binfrac = ""
+    n = frac_num
+    while len(binfrac) <= maxsize:
+        n = n*2
+        str_num = str(n).split(".")
+        dec_num = int(str_num[0])
+        binfrac += str(dec_num)
+        n = float("0."+str_num[1])
+      
+        if n == 0:
+            break
+    return binfrac 
 
-def convert_int_to_bin(dec_num):
+def convert_int_to_bin(dec_num,type):
     str_num = str(dec_num)
     frac_num = "0"
     if "." in str_num:
         str_num = str_num.split(".")
         dec_num = float(str_num[0])
         frac_num = float("0."+str_num[1])
-        print(str(dec_num), str(frac_num))
-        frac_num = frac_to_bin(frac_num)    
+        frac_num = frac_to_bin(frac_num,type)    
     num_str = str(bin(int(dec_num)))
-    if dec_num > 0:
+
+    if dec_num >= 0:
         bin_num = num_str.replace("0b", "")
     else:
         bin_num = num_str.replace("-0b", "")
@@ -37,20 +56,21 @@ def create_exp(bin_num, num_type):
     elif num_type == "float32":
         exp = 127 + scy_exp
         return bin(exp).replace("0b", "")
-    elif num_type == "float64":
+    elif num_type == "double64":
         exp = 1023 + scy_exp
         return bin(exp).replace("0b", "")
 
 def create_mantissa(bin_num, type):
     float_man = str
     if type == "float8":
+        bin_num = str(bin_num) + str("0" * 5)
         float_man = bin_num[1:4]
         return float_man
     elif type == "float32":
         bin_num = str(bin_num) + str("0" * 24)
         float_man = bin_num[1:24]
         return float_man
-    elif type == "float64":
+    elif type == "double64":
         bin_num = str(bin_num) + str("0" * 53)
         float_man = bin_num[1:53]
         return float_man
@@ -81,7 +101,7 @@ while resp != 0:
     if resp == 3:
         print("you want to calculate a IEE 745 double precision (64bits) number")
         print("you want to calculate IEE 745 single precision (32 bits) number")
-        type = "float64"
+        type = "double64"
 
     if resp == 4:
         print("you want to calculate all numbers")
@@ -91,10 +111,10 @@ while resp != 0:
 
 
     num = float(input("enter a  decimal number number: "))
-    bin_num, bin_frac = convert_int_to_bin(num)
+    bin_num, bin_frac = convert_int_to_bin(num,type)
     signal = get_signal(num)
     exp = create_exp(bin_num, type)
-    mantissa = create_mantissa(bin_num, type)
+    mantissa = create_mantissa(bin_num+bin_frac, type)
     printNumero(signal,exp,mantissa)
 
 
