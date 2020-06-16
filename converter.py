@@ -78,41 +78,51 @@ def create_mantissa(binary_num, numeric_type):
 
 
 def print_number(binary_signal, binary_exp, bynayr_mantissa):
-    print("signal: " + str(binary_signal) + " | expoent: " + str(binary_exp) + " | mantissa: " + str(bynayr_mantissa) +
+    return ("signal: " + str(binary_signal) + " | expoent: " + str(binary_exp) + " | mantissa: " + str(bynayr_mantissa) +
           "\n")
 
+def main():
+    resp = int
+    while resp != 0:
+        resp = int(input("""what you want to do?: 
+        1 - calculate a floating point (8bits);
+        2 - calculate a IEE 745 single precision (32 bits) number; 
+        3 - calculate a IEE 745 double precision (64bits) number;
+        4 - all above;
+        0 - exit.
+        type your numeric answer here: """))
+        if resp == 1:
+            print("you want to calculate a floating point (8bits)")
+            num_type = "float8"
+        
+        if resp == 2:
+            print("you want to calculate IEE 745 single precision (32 bits) number")
+            num_type = "float32"
 
-resp = int
-while resp != 0:
-    resp = int(input("""what you want to do?: 
-    1 - calculate a floating point (8bits);
-    2 - calculate a IEE 745 single precision (32 bits) number; 
-    3 - calculate a IEE 745 double precision (64bits) number;
-    4 - all above;
-    0 - exit.
-    type your numeric answer here: """))
-    if resp == 1:
-        print("you want to calculate a floating point (8bits)")
-        num_type = "float8"
-       
-    if resp == 2:
-        print("you want to calculate IEE 745 single precision (32 bits) number")
-        num_type = "float32"
+        if resp == 3:
+            print("you want to calculate a IEE 745 double precision (64bits) number")
+            print("you want to calculate IEE 745 single precision (32 bits) number")
+            num_type = "double64"
 
-    if resp == 3:
-        print("you want to calculate a IEE 745 double precision (64bits) number")
-        print("you want to calculate IEE 745 single precision (32 bits) number")
-        num_type = "double64"
+        if resp == 4:
+            print("you want to calculate all numbers")
+        if resp == 0:
+            print("bye !" + "\n")
 
-    if resp == 4:
-        print("you want to calculate all numbers")
-    if resp == 0:
-        print("bye !" + "\n")
+        
+        num = float(input("enter a  decimal number: "))
+        bin_num, bin_frac = convert_int_to_bin(num, num_type)
+        signal = get_signal(num)
+        exp = create_exp(bin_num, num_type)
+        mantissa = create_mantissa(bin_num+bin_frac, num_type)
+        print(print_number(signal, exp, mantissa))
 
-    num = float(input("enter a  decimal number: "))
+def conv(num,tipo ):
+    num_type = tipo   
+    num = float(num)
     bin_num, bin_frac = convert_int_to_bin(num, num_type)
     signal = get_signal(num)
     exp = create_exp(bin_num, num_type)
     mantissa = create_mantissa(bin_num+bin_frac, num_type)
-    print_number(signal, exp, mantissa)
+    return  print_number(signal, exp, mantissa)
 
