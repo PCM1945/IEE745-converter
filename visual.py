@@ -3,19 +3,20 @@ from tkinter import ttk
 import converter as cv
 
 OPTIONS = [
-"float8",
-"float32",
-"double64"
-] 
+    "float8",
+    "float32",
+    "double64"
+]
+
 
 def calculate(*args):
-    
     try:
         value = float(feet.get())
-        meters.set(cv.conv(value,tipo.get()))
+        meters.set(cv.conv(value, tipo.get()))
     except ValueError:
         meters.set("entrada incorreta")
         pass
+
 
 root = Tk()
 tipo = StringVar(root)
@@ -38,9 +39,9 @@ selctipo.grid(column=2, row=1, sticky=(W, E))
 ttk.Label(mainframe, textvariable=meters).grid(column=1, row=2, sticky=(W, E))
 ttk.Button(mainframe, text="Calculate", command=calculate).grid(column=3, row=1, sticky=W)
 
-#ttk.Label(mainframe, text="feet").grid(column=3, row=1, sticky=W)
-#ttk.Label(mainframe, text="is equivalent to").grid(column=1, row=2, sticky=E)
-#ttk.Label(mainframe, text="meters").grid(column=3, row=2, sticky=W)
+# ttk.Label(mainframe, text="feet").grid(column=3, row=1, sticky=W)
+# ttk.Label(mainframe, text="is equivalent to").grid(column=1, row=2, sticky=E)
+# ttk.Label(mainframe, text="meters").grid(column=3, row=2, sticky=W)
 
 for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
 
