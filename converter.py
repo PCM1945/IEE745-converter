@@ -77,8 +77,14 @@ def create_mantissa(binary_num, numeric_type):
         return float_man
 
 
-def print_number(binary_signal, binary_exp, bynayr_mantissa):
-    return ("signal: " + str(binary_signal) + " | expoent: " + str(binary_exp) + " | mantissa: " + str(bynayr_mantissa) +
+def convert_to_hexa(binary_signal, binary_exp, bynayr_mantissa):
+    final = str(binary_signal) + str(binary_exp) + str(bynayr_mantissa)
+    hexa_num = '0x%0*X' % ((len(final) + 3) // 4, int(final, 2))
+    return hexa_num
+
+
+def print_number(binary_signal, binary_exp, bynayr_mantissa, hexa_num):
+    return ("signal: " + str(binary_signal) + " | expoent: " + str(binary_exp) + " | mantissa: " + str(bynayr_mantissa) + " | hexadecimal: " + str(hexa_num) +
           "\n")
 
 def main():
@@ -115,7 +121,8 @@ def main():
         signal = get_signal(num)
         exp = create_exp(bin_num, num_type)
         mantissa = create_mantissa(bin_num+bin_frac, num_type)
-        print(print_number(signal, exp, mantissa))
+        hexa_n = convert_to_hexa(signal, exp, mantissa)
+        print(print_number(signal, exp, mantissa, hexa_n))
 
 def conv(num,tipo ):
     num_type = tipo   
@@ -124,5 +131,6 @@ def conv(num,tipo ):
     signal = get_signal(num)
     exp = create_exp(bin_num, num_type)
     mantissa = create_mantissa(bin_num+bin_frac, num_type)
-    return  print_number(signal, exp, mantissa)
+    hexa_n = convert_to_hexa(signal, exp, mantissa)
+    return  print_number(signal, exp, mantissa, hexa_n)
 
